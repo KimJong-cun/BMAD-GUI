@@ -6,6 +6,7 @@ Claude Code API 处理器
 import asyncio
 import json
 import logging
+import re
 import sys
 from pathlib import Path
 
@@ -38,11 +39,135 @@ async def detect_project_claude_process(project_path: str = None) -> dict:
 
     try:
         if sys.platform == "win32":
-            # 获取所有包含 "claude" 的窗口
-            ps_cmd = '''powershell -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -like '*claude*' } | Select-Object Id,MainWindowTitle | ConvertTo-Json -Compress"'''
+            # 方法1: 通过命令行参数检测 Claude 进程
+            # 只检测 node.exe 进程，且命令行包含 "claude-code" 或 "@anthropic-ai"（Claude Code 的特征）
+            ps_cmd_cmdline = '''powershell -Command "Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object { $_.Name -eq 'node.exe' -and $_.CommandLine -match 'claude-code|@anthropic-ai' } | Select-Object ProcessId,Name,@{N='CmdLine';E={if($_.CommandLine.Length -gt 300){$_.CommandLine.Substring(0,300)}else{$_.CommandLine}}} | ConvertTo-Json -Compress"'''
 
             proc = await asyncio.create_subprocess_shell(
-                ps_cmd,
+                ps_cmd_cmdline,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE
+            )
+            stdout, _ = await proc.communicate()
+            output = stdout.decode('utf-8', errors='replace').strip()
+
+            claude_processes = []
+            if output:
+                try:
+                    data = json.loads(output)
+                    if isinstance(data, dict):
+                        data = [data]
+                    claude_processes = data
+                except json.JSONDecodeError:
+                    pass
+
+            # 方法2: 获取所有终端窗口（cmd/powershell/terminal），检查标题是否包含项目路径
+            # 因为 cmd 窗口标题通常显示当前目录
+            terminal_windows = []
+            if project_path:
+                ps_cmd_terminal = '''powershell -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -ne '' -and ($_.ProcessName -eq 'cmd' -or $_.ProcessName -eq 'powershell' -or $_.ProcessName -eq 'WindowsTerminal' -or $_.ProcessName -eq 'pwsh') } | Select-Object Id,ProcessName,MainWindowTitle | ConvertTo-Json -Compress"'''
+
+                proc = await asyncio.create_subprocess_shell(
+                    ps_cmd_terminal,
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.PIPE
+                )
+                stdout, _ = await proc.communicate()
+                output = stdout.decode('utf-8', errors='replace').strip()
+
+                if output:
+                    try:
+                        data = json.loads(output)
+                        if isinstance(data, dict):
+                            data = [data]
+                        terminal_windows = data
+                    except json.JSONDecodeError:
+                        pass
+
+            # 方法2.5: 获取从 GUI 启动的 cmd.exe 进程（命令行包含 "cd /d" 和 "claude"）
+            claude_related_processes = []
+            ps_cmd_related = '''powershell -Command "Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object { $_.Name -eq 'cmd.exe' -and $_.CommandLine -match 'cd /d.*claude' } | Select-Object ProcessId,Name,@{N='CmdLine';E={if($_.CommandLine.Length -gt 500){$_.CommandLine.Substring(0,500)}else{$_.CommandLine}}} | ConvertTo-Json -Compress"'''
+            proc = await asyncio.create_subprocess_shell(
+                ps_cmd_related,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE
+            )
+            stdout, _ = await proc.communicate()
+            output = stdout.decode('utf-8', errors='replace').strip()
+            if output:
+                try:
+                    data = json.loads(output)
+                    if isinstance(data, dict):
+                        data = [data]
+                    claude_related_processes = data
+                except json.JSONDecodeError:
+                    pass
+
+            # 如果找到了 Claude 进程
+            if claude_processes:
+                matched_process = None
+                matched_terminal = None
+
+                if project_path:
+                    project_name = Path(project_path).name.lower()
+                    project_path_lower = project_path.lower().replace('/', '\\')
+                    # 提取项目路径中的字母数字部分用于模糊匹配（处理编码问题）
+                    project_path_ascii = re.sub(r'[^a-zA-Z0-9\\:/]', '', project_path_lower)
+
+                    # 先检查命令行中是否包含项目路径
+                    for proc_info in claude_processes:
+                        cmdline = proc_info.get('CmdLine', '').lower()
+                        if project_path_lower in cmdline or project_name in cmdline:
+                            matched_process = proc_info
+                            result["match_type"] = "project"
+                            logger.info(f"检测到项目 Claude 进程 (命令行匹配): 项目={project_name}, PID={proc_info.get('ProcessId')}")
+                            break
+
+                    # 检查 claude_related 中的 cmd.exe 命令行是否包含项目路径
+                    if not matched_process and claude_related_processes:
+                        for proc_info in claude_related_processes:
+                            if proc_info.get('Name', '').lower() == 'cmd.exe':
+                                cmdline = proc_info.get('CmdLine', '').lower()
+                                cmdline_ascii = re.sub(r'[^a-zA-Z0-9\\:/]', '', cmdline)
+                                # 使用 ASCII 版本匹配（处理中文乱码）
+                                if project_path_ascii in cmdline_ascii:
+                                    matched_process = claude_processes[0]
+                                    result["match_type"] = "project"
+                                    logger.info(f"检测到项目 Claude 进程 (cmd.exe 命令行匹配): 项目={project_name}")
+                                    break
+
+                    # 如果命令行没匹配到，检查终端窗口标题是否包含项目路径
+                    if not matched_process and terminal_windows:
+                        for terminal in terminal_windows:
+                            title = terminal.get('MainWindowTitle', '').lower()
+                            # 检查窗口标题是否包含项目路径或项目名
+                            if project_path_lower in title or project_name in title:
+                                matched_terminal = terminal
+                                matched_process = claude_processes[0]  # 使用第一个 Claude 进程
+                                result["match_type"] = "project"
+                                logger.info(f"检测到项目 Claude 进程 (终端窗口匹配): 项目={project_name}, 终端标题={title}")
+                                break
+
+                # 如果没找到项目匹配，使用第一个 Claude 进程
+                if not matched_process:
+                    matched_process = claude_processes[0]
+                    result["match_type"] = "global"
+                    logger.info(f"检测到 Claude 进程 (全局): PID={matched_process.get('ProcessId')}")
+
+                result["running"] = True
+                result["pid"] = matched_process.get('ProcessId')
+                result["cwd"] = project_path
+                if matched_terminal:
+                    result["window_title"] = matched_terminal.get('MainWindowTitle', f"Claude (PID: {matched_process.get('ProcessId')})")
+                else:
+                    result["window_title"] = f"Claude (PID: {matched_process.get('ProcessId')})"
+                return result
+
+            # 方法3: 备用 - 通过窗口标题检测（当命令行检测失败时）
+            ps_cmd_window = '''powershell -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -like '*claude*' } | Select-Object Id,MainWindowTitle | ConvertTo-Json -Compress"'''
+
+            proc = await asyncio.create_subprocess_shell(
+                ps_cmd_window,
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE
             )
@@ -53,7 +178,6 @@ async def detect_project_claude_process(project_path: str = None) -> dict:
             if output:
                 try:
                     data = json.loads(output)
-                    # 确保是列表
                     if isinstance(data, dict):
                         data = [data]
                     claude_windows = data
@@ -118,10 +242,38 @@ async def debug_claude_processes_handler(request: web.Request) -> web.Response:
         "detection_results": {},
         "node_processes": [],
         "claude_related": [],
-        "terminal_windows": []
+        "terminal_windows": [],
+        "all_windows_with_title": [],
+        "current_project": None,
+        "project_name": None
     }
 
     try:
+        # 获取当前项目信息
+        projects = await load_recent_projects()
+        project_path = projects[0].get("path") if projects else None
+        debug_info["current_project"] = project_path
+        if project_path:
+            debug_info["project_name"] = Path(project_path).name
+
+        # 获取所有有窗口标题的进程
+        if sys.platform == "win32":
+            ps_cmd_all = '''powershell -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -ne '' } | Select-Object Id,ProcessName,MainWindowTitle | ConvertTo-Json -Compress"'''
+            proc = await asyncio.create_subprocess_shell(
+                ps_cmd_all,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE
+            )
+            stdout, _ = await proc.communicate()
+            output = stdout.decode('utf-8', errors='replace').strip()
+            if output:
+                try:
+                    data = json.loads(output)
+                    if isinstance(data, dict):
+                        data = [data]
+                    debug_info["all_windows_with_title"] = data
+                except json.JSONDecodeError:
+                    debug_info["all_windows_raw"] = output[:1000]
         if sys.platform == "win32":
             # 获取所有 Node.js 进程
             ps_cmd1 = '''powershell -Command "Get-CimInstance Win32_Process | Where-Object { $_.Name -eq 'node.exe' } | Select-Object ProcessId,Name,@{N='CmdLine';E={$_.CommandLine.Substring(0, [Math]::Min(200, $_.CommandLine.Length))}} | ConvertTo-Json -Compress"'''

@@ -94,11 +94,40 @@ function renderTaskCard(command, isRecommended) {
 }
 
 /**
+ * 检查项目是否已初始化
+ * @returns {boolean} 是否已初始化
+ */
+function isProjectInitialized() {
+    // 如果有 workflowStatus 且 phases 不为空，说明已初始化
+    return state.workflowStatus &&
+           state.workflowStatus.phases &&
+           state.workflowStatus.phases.length > 0;
+}
+
+/**
  * 渲染任务卡片区域
  * @returns {string} HTML 字符串
  */
 function renderTaskCards() {
     const agent = state.currentAgent;
+    const initialized = isProjectInitialized();
+
+    // 如果项目未初始化，只显示初始化任务
+    if (!initialized) {
+        const initCommand = { name: 'workflow-init', label: '初始化项目', icon: '🚀' };
+        const cardsHtml = renderTaskCard(initCommand, true);
+
+        return `
+            <div class="task-cards-container">
+                <div class="task-cards-header">
+                    <span class="task-cards-title">可用任务</span>
+                </div>
+                <div class="task-cards-grid">
+                    ${cardsHtml}
+                </div>
+            </div>
+        `;
+    }
 
     if (!agent || !agent.commands || agent.commands.length === 0) {
         const defaultCommands = [

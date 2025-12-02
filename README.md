@@ -195,6 +195,24 @@ python bmad-gui/run.py --port 3000
 - [BMad Method](https://github.com/bmadcode/bmad-method) - AI 辅助开发方法论
 - [Claude Code](https://claude.ai/code) - Anthropic 的 AI 编程助手
 
+## 更新日志
+
+### v0.0.1 (2024-12-03)
+
+**Bug 修复：**
+- 修复 Claude Code 进程检测问题：
+  - 修复外部终端启动的 Claude Code 无法被检测到的问题
+  - 修复中文路径导致项目匹配失败的问题（使用 ASCII 模糊匹配）
+  - 修复关闭 Claude 后状态仍显示"运行中"的问题（排除检测命令自身创建的进程）
+- 修复任务卡片显示问题：
+  - 未初始化的项目现在只显示"初始化项目"任务，而非所有任务
+
+**改进：**
+- 优化 Claude Code 检测逻辑，支持多种检测方式：
+  1. 通过 node.exe 进程命令行检测
+  2. 通过 cmd.exe 启动命令检测（支持中文路径）
+  3. 通过终端窗口标题检测（备用方案）
+
 ## 许可证
 
 MIT License
