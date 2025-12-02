@@ -1,0 +1,8 @@
+# BMAD GUI Python Dependencies
+# Python 3.8+ required
+
+aiohttp>=3.8.0      # 异步 HTTP 服务器
+aiofiles>=23.0.0    # 异步文件操作
+watchfiles>=0.21.0  # 高效文件监听（Rust 实现）
+pyyaml>=6.0         # YAML 解析
+pyperclip>=1.8.0    # 跨平台剪贴板操作

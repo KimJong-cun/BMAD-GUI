@@ -1,0 +1,153 @@
+/**
+ * Claude Status Bar Styles
+ *
+ * Claude Code 运行状态指示器样式
+ */
+
+/* Claude 状态指示器 */
+.claude-status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-left: var(--spacing-sm);
+}
+
+.claude-status-indicator:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* 状态圆点 */
+.claude-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: none;
+}
+
+/* 状态：停止 */
+.claude-status-indicator.stopped .claude-status-dot {
+    background-color: var(--status-pending);
+}
+
+.claude-status-indicator.stopped .claude-status-text {
+    color: var(--text-secondary);
+}
+
+/* 状态：启动中 */
+.claude-status-indicator.starting .claude-status-dot {
+    background-color: var(--status-warning);
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.claude-status-indicator.starting .claude-status-text {
+    color: var(--status-warning);
+}
+
+/* 状态：运行中 */
+.claude-status-indicator.running .claude-status-dot {
+    background-color: var(--status-success);
+    animation: pulse-soft 2s ease-in-out infinite;
+}
+
+.claude-status-indicator.running .claude-status-text {
+    color: var(--status-success);
+}
+
+/* 状态：运行中（全局/其他项目） */
+.claude-status-indicator.running.global .claude-status-dot {
+    background-color: var(--accent-orange);
+}
+
+.claude-status-indicator.running.global .claude-status-text {
+    color: var(--accent-orange);
+}
+
+/* 状态：错误 */
+.claude-status-indicator.error .claude-status-dot {
+    background-color: var(--status-error);
+}
+
+.claude-status-indicator.error .claude-status-text {
+    color: var(--status-error);
+}
+
+/* 脉冲动画 */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes pulse-soft {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* 状态文字 */
+.claude-status-text {
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* 状态提示框 */
+.claude-status-tooltip {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 8px;
+    padding: 8px 12px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+.claude-status-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid var(--border-color);
+}
+
+.claude-status-tooltip-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 4px;
+}
+
+.claude-status-tooltip-row:last-child {
+    margin-bottom: 0;
+}
+
+.claude-status-tooltip-label {
+    color: var(--text-secondary);
+}
+
+.claude-status-tooltip-value {
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+}

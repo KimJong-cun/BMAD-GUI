@@ -1,0 +1,372 @@
+/**
+ * Landing Page Styles
+ * 着陆页/欢迎页样式
+ */
+
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: var(--spacing-xl);
+    min-height: calc(100vh - 48px - var(--spacing-lg) * 2);
+}
+
+.landing-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+}
+
+/* Action Cards Container */
+.action-cards {
+    display: flex;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+/* Single Action Card */
+.action-card {
+    width: 200px;
+    height: 120px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.action-card:hover {
+    border-color: var(--accent-orange);
+    transform: translateY(-2px);
+}
+
+.action-card-icon {
+    font-size: 28px;
+}
+
+.action-card-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* Recent Projects Section */
+.recent-projects {
+    width: 100%;
+    max-width: 500px;
+}
+
+.recent-projects-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+    position: relative;
+}
+
+.recent-projects-title::before,
+.recent-projects-title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 100px;
+    height: 1px;
+    background-color: var(--border-color);
+}
+
+.recent-projects-title::before {
+    right: calc(50% + 60px);
+}
+
+.recent-projects-title::after {
+    left: calc(50% + 60px);
+}
+
+/* Recent Projects List */
+.recent-projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+/* Single Recent Project Item */
+.recent-project-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.recent-project-item:hover {
+    border-color: var(--accent-orange);
+}
+
+.recent-project-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.recent-project-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.recent-project-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.recent-project-path {
+    font-size: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.recent-project-time {
+    font-size: 12px;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.recent-project-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex-shrink: 0;
+}
+
+.btn-launch-claude {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background-color: var(--accent-orange);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    opacity: 0;
+}
+
+.recent-project-item:hover .btn-launch-claude {
+    opacity: 1;
+}
+
+.btn-launch-claude:hover {
+    background-color: #e67316;
+    transform: scale(1.1);
+}
+
+.btn-launch-claude .launch-icon {
+    font-size: 12px;
+}
+
+/* Recent Projects Empty State */
+.recent-projects-empty {
+    text-align: center;
+    padding: var(--spacing-lg);
+    color: var(--text-secondary);
+}
+
+.recent-projects-empty-icon {
+    font-size: 32px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.recent-projects-empty-text {
+    font-size: 14px;
+}
+
+/* 导入项目对话框 */
+.import-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.import-dialog {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    width: 90%;
+    max-width: 500px;
+    overflow: hidden;
+    animation: dialogFadeIn 0.2s ease;
+}
+
+@keyframes dialogFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.import-dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+.import-dialog-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.import-dialog-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+}
+
+.import-dialog-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.import-dialog-body {
+    padding: var(--spacing-lg);
+}
+
+.import-dialog-label {
+    display: block;
+    font-size: 14px;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.import-dialog-input {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: var(--font-mono);
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.import-dialog-input:focus {
+    border-color: var(--accent-orange);
+}
+
+.import-dialog-input::placeholder {
+    color: var(--text-secondary);
+}
+
+.import-dialog-hint {
+    margin-top: var(--spacing-sm);
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.import-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+.import-dialog-btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.import-dialog-btn.cancel {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.import-dialog-btn.cancel:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.import-dialog-btn.confirm {
+    background: var(--accent-orange);
+    color: white;
+}
+
+.import-dialog-btn.confirm:hover {
+    background: #e67316;
+}
+
+/* Responsive - Landing Page */
+@media (max-width: 1023px) {
+    .action-cards {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    .action-card {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .recent-projects {
+        max-width: 100%;
+        padding: 0 var(--spacing-md);
+    }
+
+    .recent-projects-title::before,
+    .recent-projects-title::after {
+        width: 50px;
+    }
+
+    .recent-projects-title::before {
+        right: calc(50% + 50px);
+    }
+
+    .recent-projects-title::after {
+        left: calc(50% + 50px);
+    }
+}
