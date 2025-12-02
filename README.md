@@ -1,0 +1,2 @@
+# BMAD-GUI
+关于BMAD的中文GUI界面，对于刚接触BMAD的人来说非常友好，很方便去管理自己的epic或者story，快速调用Claudecode并且发送命令
