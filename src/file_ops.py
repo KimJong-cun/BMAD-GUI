@@ -83,49 +83,17 @@ async def update_recent_projects(path: str, name: str) -> None:
     await save_recent_projects(projects)
 
 
-def create_bmad_structure(path: Path, modules: list) -> None:
-    """创建 .bmad 目录结构，从模板目录复制完整 BMAD 文件"""
+def create_bmad_structure(path: Path, modules: list = None) -> None:
+    """创建 .bmad 目录结构，直接从模板目录复制"""
     bmad_dir = path / ".bmad"
-    bmad_dir.mkdir(exist_ok=True)
 
     if not BMAD_TEMPLATE_DIR.exists():
         logger.warning(f"BMAD 模板目录不存在: {BMAD_TEMPLATE_DIR}，将创建空目录结构")
-        if 'bmm' in modules:
-            bmm_dir = bmad_dir / "bmm"
-            bmm_dir.mkdir(exist_ok=True)
-            (bmm_dir / "agents").mkdir(exist_ok=True)
-            (bmm_dir / "workflows").mkdir(exist_ok=True)
-        if 'core' in modules:
-            core_dir = bmad_dir / "core"
-            core_dir.mkdir(exist_ok=True)
+        bmad_dir.mkdir(exist_ok=True)
         return
 
-    if 'bmm' in modules:
-        src_bmm = BMAD_TEMPLATE_DIR / "bmm"
-        dst_bmm = bmad_dir / "bmm"
-        if src_bmm.exists():
-            shutil.copytree(src_bmm, dst_bmm, dirs_exist_ok=True)
-            logger.info(f"已复制 bmm 模块: {src_bmm} -> {dst_bmm}")
-        else:
-            dst_bmm.mkdir(exist_ok=True)
-            (dst_bmm / "agents").mkdir(exist_ok=True)
-            (dst_bmm / "workflows").mkdir(exist_ok=True)
-
-    if 'core' in modules:
-        src_core = BMAD_TEMPLATE_DIR / "core"
-        dst_core = bmad_dir / "core"
-        if src_core.exists():
-            shutil.copytree(src_core, dst_core, dirs_exist_ok=True)
-            logger.info(f"已复制 core 模块: {src_core} -> {dst_core}")
-        else:
-            dst_core.mkdir(exist_ok=True)
-
-    for extra_dir in ['_cfg', 'docs']:
-        src_extra = BMAD_TEMPLATE_DIR / extra_dir
-        dst_extra = bmad_dir / extra_dir
-        if src_extra.exists():
-            shutil.copytree(src_extra, dst_extra, dirs_exist_ok=True)
-            logger.info(f"已复制 {extra_dir} 目录: {src_extra} -> {dst_extra}")
+    shutil.copytree(BMAD_TEMPLATE_DIR, bmad_dir, dirs_exist_ok=True)
+    logger.info(f"已复制 .bmad 目录: {BMAD_TEMPLATE_DIR} -> {bmad_dir}")
 
 
 def create_claude_structure(path: Path) -> None:

@@ -1,8 +1,16 @@
 # BMAD GUI Python Dependencies
 # Python 3.8+ required
 
+# 核心依赖
 aiohttp>=3.8.0      # 异步 HTTP 服务器
 aiofiles>=23.0.0    # 异步文件操作
 watchfiles>=0.21.0  # 高效文件监听（Rust 实现）
 pyyaml>=6.0         # YAML 解析
+
+# 键盘模拟功能（发送命令到 Claude Code）
+pyautogui>=0.9.53   # 键盘/鼠标模拟
+pygetwindow>=0.0.9  # 窗口查找
 pyperclip>=1.8.0    # 跨平台剪贴板操作
+
+# Windows 依赖（仅 Windows）
+pywin32>=305; sys_platform == "win32"  # Windows API

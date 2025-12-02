@@ -12,8 +12,8 @@ DEFAULT_PORT = 8765
 PROJECT_ROOT = Path(__file__).parent.parent
 STATIC_DIR = PROJECT_ROOT / "static"
 DATA_DIR = PROJECT_ROOT / "data"
-BMAD_TEMPLATE_DIR = PROJECT_ROOT.parent / ".bmad"
-CLAUDE_TEMPLATE_DIR = PROJECT_ROOT.parent / ".claude"
+BMAD_TEMPLATE_DIR = PROJECT_ROOT / ".bmad"
+CLAUDE_TEMPLATE_DIR = PROJECT_ROOT / ".claude"
 
 # 最近项目配置
 RECENT_PROJECTS_FILE = DATA_DIR / "recent-projects.json"

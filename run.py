@@ -21,16 +21,16 @@ REQUIRED_PACKAGES = [
     ("aiohttp", "aiohttp"),
     ("yaml", "pyyaml"),
     ("watchdog", "watchdog"),
-]
-
-# 可选依赖（键盘模拟功能）
-OPTIONAL_PACKAGES = [
+    # 键盘模拟功能（发送命令到 Claude Code）
     ("pyautogui", "pyautogui"),
     ("pygetwindow", "pygetwindow"),
     ("pyperclip", "pyperclip"),
 ]
 
-# Windows 特定依赖
+# 可选依赖
+OPTIONAL_PACKAGES = []
+
+# Windows 特定依赖（窗口激活更可靠）
 WINDOWS_PACKAGES = [
     ("win32gui", "pywin32"),
     ("win32con", "pywin32"),
@@ -72,7 +72,6 @@ def check_and_install_dependencies():
     print("\n检查依赖项...")
 
     missing_required = []
-    missing_optional = []
 
     # 检查必需依赖
     for import_name, pip_name in REQUIRED_PACKAGES:
@@ -82,51 +81,33 @@ def check_and_install_dependencies():
             print(f"  ✗ {pip_name} (缺失)")
             missing_required.append((import_name, pip_name))
 
-    # 检查可选依赖
-    print("\n检查可选依赖（键盘模拟功能）...")
-    for import_name, pip_name in OPTIONAL_PACKAGES:
-        if check_package(import_name):
-            print(f"  ✓ {pip_name}")
-        else:
-            print(f"  ○ {pip_name} (未安装)")
-            missing_optional.append((import_name, pip_name))
-
-    # Windows 特定依赖
+    # Windows 特定依赖（在 Windows 上也是必需的）
     if sys.platform == "win32":
         print("\n检查 Windows 依赖...")
         for import_name, pip_name in WINDOWS_PACKAGES:
             if check_package(import_name):
                 print(f"  ✓ {pip_name}")
             else:
-                print(f"  ○ {pip_name} (未安装)")
-                missing_optional.append((import_name, pip_name))
+                print(f"  ✗ {pip_name} (缺失)")
+                missing_required.append((import_name, pip_name))
 
-    # 安装缺失的必需依赖
+    # 安装缺失的依赖
     if missing_required:
-        print("\n安装缺失的必需依赖...")
-        for import_name, pip_name in missing_required:
+        print("\n安装缺失的依赖...")
+        # 去重（pywin32 可能出现多次）
+        seen = set()
+        unique_missing = []
+        for item in missing_required:
+            if item[1] not in seen:
+                seen.add(item[1])
+                unique_missing.append(item)
+
+        for import_name, pip_name in unique_missing:
             if install_package(pip_name):
                 print(f"  ✓ {pip_name} 安装成功")
             else:
                 print(f"  ✗ {pip_name} 安装失败")
                 return False
-
-    # 询问是否安装可选依赖
-    if missing_optional:
-        print("\n是否安装可选依赖？（用于键盘模拟功能）")
-        print("  这些依赖用于向 Claude Code 窗口发送命令")
-        try:
-            choice = input("  输入 y 安装，其他跳过 [y/N]: ").strip().lower()
-        except EOFError:
-            choice = 'n'
-
-        if choice == 'y':
-            print("\n安装可选依赖...")
-            for import_name, pip_name in missing_optional:
-                if install_package(pip_name):
-                    print(f"  ✓ {pip_name} 安装成功")
-                else:
-                    print(f"  ○ {pip_name} 安装失败（非必需）")
 
     return True
 

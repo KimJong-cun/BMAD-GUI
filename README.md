@@ -197,6 +197,20 @@ python bmad-gui/run.py --port 3000
 
 ## 更新日志
 
+### v0.0.2 (2024-12-03)
+
+**新功能：**
+- 创建新项目时自动复制 `.claude` 和 `.bmad` 模板目录
+- 内置 BMAD Method 命令模板
+
+**改进：**
+- 所有依赖改为必需安装，启动时自动检查并安装
+- 简化项目创建流程，直接复制模板目录
+
+**依赖更新：**
+- pyautogui、pygetwindow、pyperclip 改为必需依赖
+- Windows 上 pywin32 也自动安装
+
 ### v0.0.1 (2024-12-03)
 
 **Bug 修复：**
