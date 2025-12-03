@@ -1,0 +1,67 @@
+/**
+ * Toast Notifications
+ * Toast 通知样式
+ */
+
+.toast-container {
+    position: fixed;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.toast {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 14px;
+    max-width: 320px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    animation: toast-slide-in 0.3s ease;
+}
+
+.toast.toast-success {
+    background-color: var(--status-success);
+}
+
+.toast.toast-warning {
+    background-color: var(--status-warning);
+    color: #1E1F22;
+}
+
+.toast.toast-error {
+    background-color: var(--status-error);
+}
+
+.toast.toast-info {
+    background-color: var(--status-info);
+}
+
+.toast.toast-fade-out {
+    animation: toast-fade-out 0.3s ease forwards;
+}
+
+@keyframes toast-slide-in {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes toast-fade-out {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}

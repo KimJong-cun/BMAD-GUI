@@ -1,0 +1,333 @@
+/**
+ * Task Cards Styles
+ * 任务卡片样式
+ */
+
+/* 任务卡片容器 */
+.task-cards-container {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.task-cards-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.task-cards-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* 任务卡片网格 */
+.task-cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+/* 单个任务卡片 */
+.task-card {
+    width: 140px;
+    height: 110px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-xs);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.task-card:hover {
+    border-color: var(--accent-orange);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.task-card:active {
+    transform: translateY(0);
+}
+
+/* 推荐状态卡片 */
+.task-card.recommended {
+    border-color: var(--accent-orange);
+    border-left-width: 3px;
+}
+
+.task-card.recommended::before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: var(--accent-orange);
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+/* 禁用状态卡片 */
+.task-card.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.task-card.disabled:hover {
+    border-color: var(--border-color);
+    transform: none;
+    box-shadow: none;
+}
+
+/* Loading 状态卡片 */
+.task-card.loading {
+    border-color: var(--status-info);
+    pointer-events: none;
+}
+
+.task-card.loading .task-card-icon {
+    display: none;
+}
+
+.task-card.loading .task-card-label {
+    display: none;
+}
+
+.task-card.loading .task-card-command {
+    display: none;
+}
+
+.task-card.loading .task-card-tag {
+    display: none;
+}
+
+.task-card.loading::before {
+    content: '';
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border-color);
+    border-top-color: var(--accent-orange);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 8px;
+}
+
+.task-card.loading::after {
+    content: '执行中...';
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* 执行中状态卡片 (兼容旧类名) */
+.task-card.executing {
+    border-color: var(--status-info);
+}
+
+.task-card.executing .task-card-icon {
+    animation: spin 1s linear infinite;
+}
+
+/* 卡片图标 */
+.task-card-icon {
+    font-size: 24px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+/* 卡片标签（中文名） */
+.task-card-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-primary);
+    text-align: center;
+    line-height: 1.3;
+    max-height: 2.6em; /* 2 lines */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-word;
+    flex: 1;
+    width: 100%;
+    padding: 0 2px;
+}
+
+/* 卡片命令名 */
+.task-card-command {
+    font-size: 10px;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    flex-shrink: 0;
+}
+
+/* 推荐标签 */
+.task-card-tag {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 9px;
+    color: var(--accent-orange);
+    background: rgba(254, 128, 25, 0.15);
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+/* 卡片加载状态 */
+.task-card-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.task-card-loading .spinner {
+    width: 20px;
+    height: 20px;
+}
+
+.task-card-loading-text {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* Responsive - Task Cards */
+@media (max-width: 1023px) {
+    .task-cards-grid {
+        justify-content: center;
+    }
+
+    .task-card {
+        width: 120px;
+        height: 100px;
+    }
+
+    .task-card-icon {
+        font-size: 20px;
+    }
+
+    .task-card-label {
+        font-size: 11px;
+    }
+
+    .task-card-command {
+        font-size: 9px;
+    }
+}
+
+/* 大屏幕时卡片网格更整齐 */
+@media (min-width: 1200px) {
+    .task-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 140px);
+        gap: var(--spacing-md);
+    }
+}
+
+/* Next Step Suggestion */
+.next-step-suggestion {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: linear-gradient(135deg, rgba(254, 128, 25, 0.1) 0%, rgba(152, 118, 170, 0.1) 100%);
+    border: 1px solid rgba(254, 128, 25, 0.3);
+    border-radius: var(--radius-md);
+    margin: var(--spacing-md) var(--spacing-lg);
+}
+
+.next-step-suggestion.completed {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%);
+    border-color: rgba(76, 175, 80, 0.3);
+}
+
+.next-step-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+}
+
+.next-step-content {
+    flex: 1;
+}
+
+.next-step-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.next-step-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.next-step-desc code {
+    background-color: var(--bg-secondary);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    color: var(--accent-orange);
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+.phase-highlight {
+    color: var(--accent-purple);
+    font-weight: 500;
+}
+
+.task-highlight {
+    color: var(--status-info);
+    font-weight: 500;
+}
+
+.agent-highlight {
+    color: var(--accent-orange);
+    font-weight: 600;
+}
+
+.next-step-action {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--accent-orange);
+    color: var(--text-primary);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.next-step-action:hover {
+    background-color: #e67316;
+    transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .next-step-suggestion {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-sm);
+    }
+
+    .next-step-action {
+        width: 100%;
+    }
+}

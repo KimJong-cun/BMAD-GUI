@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMAD GUI</title>
+    <link rel="stylesheet" href="/static/css/main.css?v=3">
+    <link rel="stylesheet" href="/static/css/landing.css?v=2">
+    <link rel="stylesheet" href="/static/css/sprint.css?v=5">
+    <link rel="stylesheet" href="/static/css/story-execution.css">
+    <link rel="stylesheet" href="/static/css/config.css">
+    <link rel="stylesheet" href="/static/claude-status.css">
+</head>
+<body>
+    <!-- Navigation Bar (48px fixed height) -->
+    <nav id="nav-bar">
+        <div class="nav-brand">BMAD GUI</div>
+        <div class="nav-tabs" id="tab-container">
+            <!-- Tabs rendered by JS based on current route -->
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="app-content">
+        <!-- Content rendered by JS based on current route -->
+    </main>
+
+    <!-- Toast Notifications Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Hidden folder picker for import -->
+    <input type="file" id="folder-input" webkitdirectory hidden>
+
+    <!-- JS Modules (load order matters) -->
+    <!-- 1. Configuration and Constants -->
+    <script src="/static/js/config.js"></script>
+
+    <!-- 2. State Management -->
+    <script src="/static/js/state.js"></script>
+
+    <!-- 3. Utilities -->
+    <script src="/static/js/utils.js"></script>
+
+    <!-- 4. Components -->
+    <script src="/static/js/components/toast.js"></script>
+    <script src="/static/js/api.js?v=2"></script>
+    <script src="/static/js/sse.js"></script>
+    <script src="/static/js/components/workflow.js?v=3"></script>
+    <script src="/static/js/components/story-execution.js?v=4"></script>
+    <script src="/static/js/components/task-cards.js?v=4"></script>
+    <script src="/static/js/components/agent-selector.js"></script>
+    <script src="/static/js/components/sprint.js?v=14"></script>
+    <script src="/static/js/components/wizard.js"></script>
+
+    <!-- 5. Pages -->
+    <script src="/static/js/pages/landing.js"></script>
+    <script src="/static/js/pages/command.js?v=2"></script>
+    <script src="/static/js/pages/claude.js"></script>
+    <script src="/static/js/pages/config.js?v=2"></script>
+
+    <!-- 6. Router -->
+    <script src="/static/js/router.js"></script>
+
+    <!-- 7. Claude Status (external module) -->
+    <script src="/static/claude-status.js"></script>
+
+    <!-- 8. Main Entry Point -->
+    <script src="/static/js/main.js?v=2"></script>
+</body>
+</html>

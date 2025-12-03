@@ -1,0 +1,375 @@
+/**
+ * Claude Code Launcher Page Styles
+ * Claude 启动页样式
+ */
+
+.claude-page {
+    padding: var(--spacing-xl);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.claude-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.claude-header h2 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.claude-subtitle {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.claude-project-info {
+    background-color: var(--bg-card);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.claude-project-label {
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.claude-project-name {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.claude-project-path {
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-family: monospace;
+}
+
+.claude-launch-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.claude-launch-card {
+    background-color: var(--bg-card);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+    border: 2px solid transparent;
+}
+
+.claude-launch-card:hover {
+    transform: translateY(-2px);
+}
+
+/* 标准模式 - 橙色 */
+.claude-launch-standard {
+    border-color: var(--accent-orange);
+}
+
+.claude-launch-standard:hover {
+    background-color: rgba(254, 128, 25, 0.1);
+    box-shadow: 0 4px 12px rgba(254, 128, 25, 0.2);
+}
+
+.claude-launch-standard .claude-launch-icon {
+    background-color: var(--accent-orange);
+    color: white;
+}
+
+/* 危险模式 - 红色 */
+.claude-launch-dangerous {
+    border-color: #dc3545;
+    flex-wrap: wrap;
+}
+
+.claude-launch-dangerous:hover {
+    background-color: rgba(220, 53, 69, 0.1);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+}
+
+.claude-launch-dangerous .claude-launch-icon {
+    background-color: #dc3545;
+    color: white;
+}
+
+.claude-launch-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.claude-launch-content {
+    flex: 1;
+}
+
+.claude-launch-content h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+    font-size: 16px;
+}
+
+.claude-launch-content p {
+    color: var(--text-secondary);
+    font-size: 13px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.claude-launch-content code {
+    background-color: var(--bg-secondary);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    color: var(--text-primary);
+}
+
+.claude-launch-warning {
+    width: 100%;
+    background-color: rgba(220, 53, 69, 0.15);
+    color: #dc3545;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    margin-top: var(--spacing-sm);
+}
+
+/* 命令输入区域 */
+.claude-input-section {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid var(--border-color);
+}
+
+.claude-input-section h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+    font-size: 16px;
+}
+
+.claude-input-hint {
+    color: var(--text-secondary);
+    font-size: 13px;
+    margin-bottom: var(--spacing-md);
+}
+
+.claude-input-wrapper {
+    background-color: var(--bg-card);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+}
+
+.claude-input-textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    margin-bottom: var(--spacing-md);
+}
+
+.claude-input-textarea:focus {
+    outline: none;
+    border-color: var(--accent-orange);
+}
+
+.claude-input-textarea::placeholder {
+    color: var(--text-secondary);
+}
+
+.claude-input-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.claude-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.claude-btn-primary {
+    background-color: var(--accent-orange);
+    color: white;
+}
+
+.claude-btn-primary:hover {
+    background-color: #e06a00;
+    transform: translateY(-1px);
+}
+
+.claude-btn-secondary {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.claude-btn-secondary:hover {
+    background-color: var(--bg-hover);
+}
+
+.claude-btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.claude-btn-danger:hover {
+    background-color: #c82333;
+}
+
+.claude-btn-group {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+/* 确认对话框 */
+.claude-confirm-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.claude-confirm-dialog {
+    background-color: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    min-width: 360px;
+    max-width: 480px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.claude-confirm-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.claude-confirm-icon {
+    font-size: 24px;
+}
+
+.claude-confirm-header h3 {
+    color: var(--text-primary);
+    margin: 0;
+    font-size: 18px;
+}
+
+.claude-confirm-body {
+    margin-bottom: var(--spacing-lg);
+}
+
+.claude-confirm-body p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin: 0 0 var(--spacing-sm) 0;
+}
+
+.claude-confirm-command {
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-md);
+    margin: var(--spacing-sm) 0;
+}
+
+.claude-confirm-command code {
+    color: var(--accent-orange);
+    font-size: 14px;
+    font-family: monospace;
+}
+
+.claude-confirm-hint {
+    color: var(--text-secondary);
+    font-size: 12px;
+    margin-top: var(--spacing-sm);
+}
+
+.claude-confirm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-sm);
+}
+
+.claude-confirm-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.claude-confirm-cancel {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.claude-confirm-cancel:hover {
+    background-color: var(--bg-hover);
+}
+
+.claude-confirm-ok {
+    background-color: var(--accent-orange);
+    color: white;
+}
+
+.claude-confirm-ok:hover {
+    background-color: #e06a00;
+    transform: translateY(-1px);
+}
+
+.claude-confirm-ok:focus {
+    outline: 2px solid var(--accent-orange);
+    outline-offset: 2px;
+}

@@ -1,0 +1,71 @@
+/**
+ * Status Bar Styles
+ * 状态栏样式
+ */
+
+.status-bar {
+    height: 36px;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--spacing-lg);
+    font-size: 13px;
+}
+
+.status-bar-left {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    color: var(--text-secondary);
+}
+
+.status-bar-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.status-bar-agent {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    cursor: pointer;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s ease;
+}
+
+.status-bar-agent:hover {
+    background-color: var(--bg-card);
+}
+
+.status-bar-agent-icon {
+    font-size: 14px;
+}
+
+.status-bar-agent-name {
+    color: var(--accent-orange);
+    font-weight: 500;
+}
+
+/* 模式标签 */
+.status-bar-mode {
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.status-bar-mode.mode-standard {
+    background-color: rgba(152, 118, 170, 0.2);
+    color: #9876AA;
+    border: 1px solid rgba(152, 118, 170, 0.4);
+}
+
+.status-bar-mode.mode-quick {
+    background-color: rgba(254, 128, 25, 0.2);
+    color: var(--accent-orange);
+    border: 1px solid rgba(254, 128, 25, 0.4);
+}
