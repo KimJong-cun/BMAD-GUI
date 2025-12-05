@@ -1,0 +1,714 @@
+/**
+ * Sprint Board Styles
+ * Sprint 看板样式
+ */
+
+/* Sprint 页面容器 */
+.sprint-page {
+    padding: var(--spacing-md);
+    height: 100%;
+    overflow-y: auto;
+    background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(24, 25, 28, 1) 100%);
+}
+
+/* Sprint 头部 */
+.sprint-header {
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sprint-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-sm) 0;
+}
+
+.sprint-summary {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.project-name {
+    font-weight: 500;
+    color: var(--accent-purple);
+    background: rgba(150, 130, 200, 0.1);
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+}
+
+/* 总进度条容器 */
+.overall-progress-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.overall-progress-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.overall-progress-bar {
+    width: 120px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.overall-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-orange), #FF9A3C);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.overall-progress-text {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent-orange);
+    min-width: 80px;
+}
+
+/* 加载和空状态 */
+.sprint-loading,
+.sprint-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+    color: var(--text-secondary);
+    min-height: 300px;
+}
+
+/* Epic 容器 */
+.epics-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    position: relative;
+}
+
+/* Epic 卡片 */
+.epic-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    overflow: visible;
+    transition: all 0.2s ease;
+}
+
+.epic-card:hover,
+.epic-card:focus-within {
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    position: relative;
+}
+
+.epic-card-header {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.epic-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-xs);
+}
+
+.epic-number {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Epic 状态徽章 */
+.epic-status-badge {
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+/* Epic 进度条 */
+.epic-progress {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.progress-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--status-success);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    min-width: 35px;
+    text-align: right;
+}
+
+/* Epic 回顾 */
+.epic-retro {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-xs);
+    font-size: 10px;
+}
+
+.retro-label {
+    color: var(--text-secondary);
+}
+
+.retro-status {
+    padding: 1px 4px;
+    border-radius: 2px;
+    font-size: 9px;
+    font-weight: 500;
+}
+
+/* Stories 容器 */
+.epic-stories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    overflow: visible;
+}
+
+/* Story 卡片 - 紧凑设计 */
+.story-card {
+    position: relative;
+    width: 120px;
+    height: 90px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease;
+    border-left: 3px solid var(--border-color);
+}
+
+.story-card:hover {
+    border-color: var(--accent-orange);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 9000;
+}
+
+.story-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+
+.story-id {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.story-card-title {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.3;
+    flex: 1;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* Story 迷你进度条 */
+.story-progress-mini {
+    margin-top: auto;
+}
+
+.story-progress-bar {
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 1px;
+    overflow: hidden;
+}
+
+.story-progress-fill {
+    height: 100%;
+    background: var(--status-success);
+    border-radius: 1px;
+    transition: width 0.3s ease;
+}
+
+/* Story 悬浮提示 - 向上弹出 */
+.story-tooltip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+    min-width: 130px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    pointer-events: none;
+}
+
+.story-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--bg-card);
+}
+
+.story-card:hover .story-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 当菜单打开时隐藏tooltip */
+.story-card.menu-open .story-tooltip {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* 状态流程 */
+.tooltip-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.flow-step {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+.flow-step.done {
+    color: var(--status-success);
+}
+
+.flow-step.done .flow-icon {
+    color: var(--status-success);
+}
+
+.flow-step.current {
+    color: var(--accent-orange);
+}
+
+.flow-icon {
+    font-size: 10px;
+    width: 12px;
+    text-align: center;
+}
+
+.flow-name {
+    flex: 1;
+}
+
+/* Story 状态徽章 */
+.story-status-badge {
+    padding: 1px 4px;
+    border-radius: 2px;
+    font-size: 8px;
+    font-weight: 500;
+}
+
+/* 状态颜色 */
+.status-backlog {
+    border-left-color: var(--text-secondary);
+}
+.status-backlog .story-status-badge,
+.status-backlog.epic-status-badge,
+.status-backlog.retro-status {
+    background-color: rgba(110, 110, 110, 0.2);
+    color: var(--text-secondary);
+}
+
+.status-contexted {
+    border-left-color: var(--accent-purple);
+}
+.status-contexted .story-status-badge,
+.status-contexted.epic-status-badge,
+.status-contexted.retro-status {
+    background-color: rgba(150, 130, 200, 0.2);
+    color: var(--accent-purple);
+}
+
+.status-drafted {
+    border-left-color: #6897BB;
+}
+.status-drafted .story-status-badge,
+.status-drafted.epic-status-badge,
+.status-drafted.retro-status {
+    background-color: rgba(104, 151, 187, 0.2);
+    color: #6897BB;
+}
+
+.status-ready {
+    border-left-color: #FFC66D;
+}
+.status-ready .story-status-badge,
+.status-ready.epic-status-badge,
+.status-ready.retro-status {
+    background-color: rgba(255, 198, 109, 0.2);
+    color: #FFC66D;
+}
+
+.status-progress {
+    border-left-color: var(--accent-orange);
+}
+.status-progress .story-status-badge,
+.status-progress.epic-status-badge,
+.status-progress.retro-status {
+    background-color: rgba(254, 128, 25, 0.2);
+    color: var(--accent-orange);
+}
+
+.status-review {
+    border-left-color: #CC7832;
+}
+.status-review .story-status-badge,
+.status-review.epic-status-badge,
+.status-review.retro-status {
+    background-color: rgba(204, 120, 50, 0.2);
+    color: #CC7832;
+}
+
+.status-done {
+    border-left-color: var(--status-success);
+}
+.status-done .story-status-badge,
+.status-done.epic-status-badge,
+.status-done.retro-status {
+    background-color: rgba(76, 175, 80, 0.2);
+    color: var(--status-success);
+}
+
+.status-optional {
+    border-left-color: var(--text-secondary);
+}
+.status-optional .story-status-badge,
+.status-optional.epic-status-badge,
+.status-optional.retro-status {
+    background-color: rgba(110, 110, 110, 0.15);
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Story 卡片点击样式 */
+.story-card {
+    cursor: pointer;
+}
+
+.story-card:active {
+    transform: scale(0.98);
+}
+
+/* Story 状态选择菜单 */
+.story-status-menu {
+    position: fixed;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    z-index: 10001;
+    min-width: 180px;
+    overflow: hidden;
+    animation: menuFadeIn 0.15s ease;
+}
+
+@keyframes menuFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.status-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.status-menu-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.status-menu-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+}
+
+.status-menu-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.status-menu-options {
+    padding: var(--spacing-xs);
+}
+
+.status-menu-option {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.status-menu-option:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.status-menu-option.active {
+    background: rgba(254, 128, 25, 0.15);
+}
+
+.status-option-icon {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+.status-option-label {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.status-option-check {
+    color: var(--accent-orange);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* 待办故事提示 */
+.status-menu-hint {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--text-secondary);
+    font-size: 12px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+.hint-icon {
+    font-size: 14px;
+}
+
+.hint-text {
+    flex: 1;
+}
+
+/* 创建故事按钮样式 */
+.status-menu-option.create-story {
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px dashed rgba(76, 175, 80, 0.3);
+    margin: var(--spacing-xs);
+    border-radius: var(--radius-sm);
+}
+
+.status-menu-option.create-story:hover {
+    background: rgba(76, 175, 80, 0.2);
+    border-color: var(--status-success);
+}
+
+.status-menu-option.create-story .status-option-label {
+    color: var(--status-success);
+    font-weight: 500;
+}
+
+/* 确认对话框 */
+.confirm-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10002;
+}
+
+.confirm-dialog {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    width: 90%;
+    max-width: 400px;
+    overflow: hidden;
+    animation: confirmFadeIn 0.2s ease;
+}
+
+@keyframes confirmFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.confirm-dialog-header {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+.confirm-dialog-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.confirm-dialog-body {
+    padding: var(--spacing-lg);
+    text-align: center;
+}
+
+.confirm-dialog-message {
+    font-size: 14px;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.confirm-dialog-command {
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--accent-orange);
+}
+
+.confirm-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+.confirm-dialog-btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.confirm-dialog-btn.cancel {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.confirm-dialog-btn.cancel:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.confirm-dialog-btn.copy {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.confirm-dialog-btn.copy:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-purple);
+}
+
+.confirm-dialog-btn.confirm {
+    background: var(--accent-orange);
+    color: white;
+}
+
+.confirm-dialog-btn.confirm:hover {
+    background: #e67316;
+}
+
+/* Responsive - Sprint Board */
+@media (max-width: 768px) {
+    .sprint-page {
+        padding: var(--spacing-sm);
+    }
+
+    .sprint-summary {
+        flex-wrap: wrap;
+    }
+
+    .story-card {
+        width: 100px;
+        height: 80px;
+    }
+
+    .story-card-title {
+        font-size: 9px;
+        -webkit-line-clamp: 2;
+    }
+}

@@ -1,0 +1,211 @@
+/**
+ * BMAD GUI - Story Execution Styles
+ * Story 执行面板样式
+ */
+
+/* Story 执行面板 */
+.story-execution-panel {
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    margin-top: 12px;
+}
+
+.story-execution-content {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Story 信息卡片 */
+.story-info {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.story-info-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    color: var(--status-success);
+    font-size: 14px;
+}
+
+.story-info-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.story-info-icon {
+    font-size: 18px;
+}
+
+.story-info-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.story-info-name {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+    padding-left: 26px;
+}
+
+.story-info-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding-left: 26px;
+}
+
+/* Story 状态徽章 */
+.story-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.story-status-badge .status-icon {
+    font-size: 10px;
+}
+
+.story-status-badge.status-backlog {
+    background: rgba(110, 110, 110, 0.2);
+    color: var(--text-secondary);
+}
+
+.story-status-badge.status-drafted {
+    background: rgba(104, 151, 187, 0.2);
+    color: var(--status-info);
+}
+
+.story-status-badge.status-ready-for-dev {
+    background: rgba(255, 198, 109, 0.2);
+    color: var(--status-warning);
+}
+
+.story-status-badge.status-in-progress {
+    background: rgba(152, 118, 170, 0.2);
+    color: var(--accent-purple);
+}
+
+.story-status-badge.status-review {
+    background: rgba(254, 128, 25, 0.2);
+    color: var(--accent-orange);
+}
+
+.story-status-badge.status-done {
+    background: rgba(76, 175, 80, 0.2);
+    color: var(--status-success);
+}
+
+/* Epic 徽章 */
+.story-epic-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+}
+
+/* Story 操作按钮区域 */
+.story-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.story-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 10px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.story-action-btn:hover {
+    background: var(--bg-card);
+    border-color: var(--accent-orange);
+}
+
+.story-action-btn.primary {
+    background: var(--accent-orange);
+    border-color: var(--accent-orange);
+    color: #fff;
+}
+
+.story-action-btn.primary:hover {
+    filter: brightness(1.1);
+}
+
+.story-action-btn:disabled,
+.story-action-btn.loading {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.story-action-btn.loading .action-icon {
+    animation: spin 1s linear infinite;
+}
+
+.story-action-btn .action-icon {
+    font-size: 16px;
+}
+
+.story-action-btn .action-label {
+    font-weight: 500;
+}
+
+/* Story 工作流列表 */
+.story-workflows {
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.story-workflows-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* 动画 */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 响应式 */
+@media (max-width: 480px) {
+    .story-actions {
+        flex-direction: column;
+    }
+
+    .story-action-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,45 @@
+/**
+ * CSS Variables (Theme)
+ * 全局 CSS 变量定义
+ */
+
+:root {
+    /* 背景色 */
+    --bg-primary: #2B2D30;
+    --bg-secondary: #1E1F22;
+    --bg-card: #3C3F41;
+
+    /* 文字色 */
+    --text-primary: #FFFFFF;
+    --text-secondary: #A9B7C6;
+
+    /* 强调色 */
+    --accent-orange: #FE8019;
+    --accent-purple: #9876AA;
+
+    /* 状态色 */
+    --status-success: #4CAF50;
+    --status-info: #6897BB;
+    --status-warning: #FFC66D;
+    --status-error: #FF6B68;
+    --status-pending: #6E6E6E;
+
+    /* 边框色 */
+    --border-color: #43454A;
+
+    /* 间距系统 (8px base) */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+
+    /* 圆角 */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    /* 字体 */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}

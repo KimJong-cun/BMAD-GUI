@@ -1,0 +1,158 @@
+/**
+ * Agent Selector Styles
+ * Agent 选择器弹窗样式
+ */
+
+/* 遮罩层 */
+.agent-selector-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 选择器容器 */
+.agent-selector {
+    width: 400px;
+    max-height: 500px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 选择器头部 */
+.agent-selector-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* 关闭按钮 */
+.agent-selector-close {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+}
+
+.agent-selector-close:hover {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* 选择器列表 */
+.agent-selector-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* 单个 Agent 项 */
+.agent-selector-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.agent-selector-item:hover {
+    background-color: var(--bg-secondary);
+}
+
+.agent-selector-item.selected {
+    background-color: rgba(254, 128, 25, 0.1);
+}
+
+/* Agent 图标 */
+.agent-selector-icon {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+}
+
+/* Agent 信息 */
+.agent-selector-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.agent-selector-name {
+    font-weight: 500;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.agent-selector-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 选中标记 */
+.agent-selector-check {
+    color: var(--status-success);
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+/* Responsive - Agent Selector */
+@media (max-width: 480px) {
+    .agent-selector {
+        width: calc(100% - var(--spacing-lg) * 2);
+        margin: 0 var(--spacing-lg);
+    }
+}

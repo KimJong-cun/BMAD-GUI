@@ -1,0 +1,10 @@
+/**
+ * BMAD GUI - Stylesheet Entry Point
+ *
+ * This file is now a lightweight bootstrap that imports the modularized styles.
+ * The core logic has been moved to main.css and individual component files.
+ */
+
+@import url('css/main.css');
+
+/* Any highly specific overrides can go here, but prefer editing the modules */

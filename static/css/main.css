@@ -1,0 +1,20 @@
+/**
+ * BMAD GUI - Main Stylesheet
+ *
+ * JetBrains-inspired dark theme
+ * 导入所有模块样式
+ */
+
+@import url('variables.css');
+@import url('base.css');
+@import url('navigation.css');
+@import url('toast.css');
+@import url('landing.css');
+@import url('wizard.css');
+@import url('workflow.css');
+@import url('task-cards.css');
+@import url('status-bar.css');
+@import url('agent-selector.css');
+@import url('sprint.css');
+@import url('claude-page.css');
+@import url('responsive.css');
